@@ -1,1458 +1,478 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 
 <meta charset="UTF-8">
 
 <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
 >
 
 <title>CSM PPT Dashboard</title>
 
-
 <style>
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
 }
-
 
 body {
-
-    min-height: 100vh;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background:
-        linear-gradient(
-            135deg,
-            #07111f,
-            #0d1b2e,
-            #102a43
-        );
-
-    color: white;
-
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #eef3f8;
+  color: #172033;
 }
-
-
-.header {
-
-    padding:
-        25px 35px;
-
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            0.25
-        );
-
-    border-bottom:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.1
-        );
-
-}
-
-
-.header h1 {
-
-    font-size:
-        27px;
-
-}
-
-
-.header p {
-
-    margin-top:
-        7px;
-
-    color:
-        #9fb2c7;
-
-    font-size:
-        13px;
-
-}
-
 
 .container {
-
-    width:
-        min(
-            900px,
-            94%
-        );
-
-    margin:
-        35px auto;
-
+  width: min(1100px, 94%);
+  margin: 40px auto;
 }
 
-
-.search-box {
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.07
-        );
-
-    border:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.12
-        );
-
-    border-radius:
-        20px;
-
-    padding:
-        28px;
-
+.header {
+  background: #172554;
+  color: white;
+  padding: 30px;
+  border-radius: 18px;
+  margin-bottom: 25px;
 }
 
-
-.search-title {
-
-    font-size:
-        20px;
-
-    margin-bottom:
-        20px;
-
+.header h1 {
+  margin: 0 0 8px;
 }
 
-
-.field {
-
-    margin-bottom:
-        18px;
-
+.header p {
+  margin: 0;
+  opacity: .85;
 }
 
-
-.field label {
-
-    display:
-        block;
-
-    margin-bottom:
-        8px;
-
-    color:
-        #b6c7d9;
-
-    font-size:
-        13px;
-
-    font-weight:
-        bold;
-
+.controls {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.08);
 }
 
-
-input,
-select {
-
-    width:
-        100%;
-
-    padding:
-        14px;
-
-    border-radius:
-        10px;
-
-    border:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.15
-        );
-
-    background:
-        #13283e;
-
-    color:
-        white;
-
-    outline:
-        none;
-
-    font-size:
-        14px;
-
+label {
+  font-weight: bold;
+  margin-bottom: 7px;
+  display: block;
 }
 
-
-select option {
-
-    background:
-        #13283e;
-
+select,
+button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #ccd5e0;
+  font-size: 15px;
 }
 
-
-input:focus,
-select:focus {
-
-    border-color:
-        #4da3ff;
-
+button {
+  background: #172554;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-
-.search-btn {
-
-    width:
-        100%;
-
-    padding:
-        14px;
-
-    border:
-        none;
-
-    border-radius:
-        10px;
-
-    background:
-        #1677ff;
-
-    color:
-        white;
-
-    font-weight:
-        bold;
-
-    cursor:
-        pointer;
-
-    font-size:
-        14px;
-
+button:hover {
+  opacity: .9;
 }
-
-
-.search-btn:hover {
-
-    background:
-        #0e65df;
-
-}
-
-
-.search-btn:disabled {
-
-    opacity:
-        0.45;
-
-    cursor:
-        not-allowed;
-
-}
-
 
 .results {
-
-    margin-top:
-        28px;
-
+  margin-top: 25px;
 }
 
-
-.ppt-card {
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.07
-        );
-
-    border:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.11
-        );
-
-    border-radius:
-        18px;
-
-    padding:
-        24px;
-
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 5px 18px rgba(0,0,0,.07);
 }
 
-
-.file-icon {
-
-    width:
-        48px;
-
-    height:
-        48px;
-
-    border-radius:
-        12px;
-
-    background:
-        rgba(
-            255,
-            90,
-            90,
-            0.15
-        );
-
-    display:
-        flex;
-
-    justify-content:
-        center;
-
-    align-items:
-        center;
-
-    font-size:
-        23px;
-
+.info h3 {
+  margin: 0 0 7px;
 }
 
-
-.ppt-card h2 {
-
-    margin-top:
-        17px;
-
-    font-size:
-        19px;
-
+.info p {
+  margin: 4px 0;
+  color: #596579;
 }
-
-
-.topic {
-
-    margin-top:
-        9px;
-
-    color:
-        #a9bdcf;
-
-    font-size:
-        13px;
-
-}
-
-
-.details {
-
-    margin-top:
-        17px;
-
-    display:
-        grid;
-
-    gap:
-        8px;
-
-}
-
-
-.detail {
-
-    display:
-        flex;
-
-    justify-content:
-        space-between;
-
-    gap:
-        20px;
-
-    font-size:
-        12px;
-
-}
-
-
-.detail span:first-child {
-
-    color:
-        #71879d;
-
-}
-
-
-.detail span:last-child {
-
-    color:
-        #dbe8f5;
-
-    text-align:
-        right;
-
-}
-
 
 .present {
-
-    width:
-        100%;
-
-    margin-top:
-        20px;
-
-    padding:
-        13px;
-
-    border:
-        none;
-
-    border-radius:
-        10px;
-
-    background:
-        #1677ff;
-
-    color:
-        white;
-
-    font-weight:
-        bold;
-
-    cursor:
-        pointer;
-
+  width: auto;
+  min-width: 130px;
 }
 
-
-.present:hover {
-
-    background:
-        #0e65df;
-
+.status {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  margin-top: 20px;
 }
 
+@media(max-width:700px) {
 
-.empty {
+  .controls {
+    grid-template-columns: 1fr;
+  }
 
-    padding:
-        55px 20px;
+  .card {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-    text-align:
-        center;
-
-    border:
-        1px dashed
-        rgba(
-            255,
-            255,
-            255,
-            0.15
-        );
-
-    border-radius:
-        17px;
-
-    color:
-        #8499ad;
+  .present {
+    width: 100%;
+  }
 
 }
-
-
-.message {
-
-    margin-top:
-        20px;
-
-    padding:
-        16px;
-
-    border-radius:
-        11px;
-
-    font-size:
-        13px;
-
-}
-
-
-.error {
-
-    color:
-        #ff9d9d;
-
-    background:
-        rgba(
-            255,
-            60,
-            60,
-            0.1
-        );
-
-    border:
-        1px solid
-        rgba(
-            255,
-            60,
-            60,
-            0.25
-        );
-
-}
-
-
-@media(max-width:650px) {
-
-    .container {
-
-        width:
-            94%;
-
-    }
-
-    .search-box {
-
-        padding:
-            20px;
-
-    }
-
-}
-
 
 </style>
 
 </head>
 
-
 <body>
 
+<div class="container">
 
-<header class="header">
+  <div class="header">
 
-<h1>
-CSM PPT Dashboard
-</h1>
+    <h1>CSM PPT Dashboard</h1>
 
-<p>
-Search your submitted presentation
-</p>
+    <p>
+      Select a subject and presentation type
+      to view all submitted PPTs.
+    </p>
 
-</header>
-
-
-<main class="container">
+  </div>
 
 
-<section class="search-box">
+  <div class="controls">
+
+    <div>
+
+      <label>
+        Select Subject
+      </label>
+
+      <select id="subject">
+
+        <option value="">
+          Select Subject
+        </option>
+
+        <option value="Node-JS">
+          Node-JS
+        </option>
+
+        <option value="CM">
+          CM
+        </option>
+
+        <option value="JAVA">
+          JAVA
+        </option>
+
+        <option value="DBMS">
+          DBMS
+        </option>
+
+        <option value="SE">
+          SE
+        </option>
+
+        <option value="COA">
+          COA
+        </option>
+
+      </select>
+
+    </div>
 
 
-<div class="search-title">
-Find Your Presentation
-</div>
+    <div>
+
+      <label>
+        Select Type
+      </label>
+
+      <select id="category">
+
+        <option value="">
+          Select Type
+        </option>
+
+        <option value="lab">
+          Lab
+        </option>
+
+        <option value="theory">
+          Theory
+        </option>
+
+        <option value="project">
+          Project
+        </option>
+
+      </select>
+
+    </div>
 
 
-<!-- ROLL -->
+    <div style="display:flex;align-items:end;">
 
-<div class="field">
+      <button
+        id="searchButton"
+        onclick="searchPPTs()"
+      >
+        SEARCH PPTs
+      </button>
 
-<label>
-1. ENTER ROLL NUMBER
-</label>
+    </div>
 
-<input
-    id="roll"
-    type="text"
-    placeholder="Enter your roll number"
-    autocomplete="off"
->
-
-</div>
+  </div>
 
 
-<!-- SUBJECT -->
-
-<div class="field">
-
-<label>
-2. SELECT SUBJECT
-</label>
-
-<select
-    id="subject"
-    disabled
->
-
-<option value="">
-Select Subject
-</option>
-
-</select>
-
-</div>
+  <div
+    id="status"
+    class="status"
+  >
+    Select subject and type, then click SEARCH PPTs.
+  </div>
 
 
-<!-- TYPE -->
-
-<div class="field">
-
-<label>
-3. SELECT TYPE
-</label>
-
-<select
-    id="category"
-    disabled
->
-
-<option value="">
-Select Lab / Theory / Project
-</option>
-
-</select>
-
-</div>
-
-
-<!-- SEARCH -->
-
-<button
-    id="searchButton"
-    class="search-btn"
-    disabled
->
-
-SEARCH
-
-</button>
-
-
-</section>
-
-
-<section
+  <div
     id="results"
     class="results"
->
-</section>
+  ></div>
 
-
-</main>
+</div>
 
 
 <script>
-
-
-/********************************************************
- * API URL
- ********************************************************/
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxHJcKMqv9YIyoNaOZyZOTsmWlQmzqJNNA6pZ8vQPZQReTEXtFF1nubHOIcC94iI_KE/exec";
 
 
-/********************************************************
- * SUBJECTS
- ********************************************************/
+async function searchPPTs() {
 
-const SUBJECTS = {
+  const subject =
+    document
+      .getElementById("subject")
+      .value;
 
-    lab: [
-        "Node-JS",
-        "CM-Lab",
-        "Java-Lab",
-        "DBMS-Lab",
-        "SE-Lab"
-    ],
+  const category =
+    document
+      .getElementById("category")
+      .value;
 
-    theory: [
-        "DBMS",
-        "Java",
-        "SE",
-        "COA"
-    ],
+  const status =
+    document
+      .getElementById("status");
 
-    project: [
-        "Node-JS",
-        "CM-Lab",
-        "Java-Lab",
-        "DBMS-Lab",
-        "SE-Lab"
-    ]
+  const results =
+    document
+      .getElementById("results");
 
-};
 
+  results.innerHTML = "";
 
-/********************************************************
- * ELEMENTS
- ********************************************************/
 
-const roll =
-    document.getElementById(
-        "roll"
-    );
+  if (!subject || !category) {
 
-const subject =
-    document.getElementById(
-        "subject"
-    );
+    status.textContent =
+      "Please select both subject and type.";
 
-const category =
-    document.getElementById(
-        "category"
-    );
+    return;
 
-const searchButton =
-    document.getElementById(
-        "searchButton"
-    );
+  }
 
-const results =
-    document.getElementById(
-        "results"
-    );
 
+  status.textContent =
+    "Searching PPTs...";
 
-/********************************************************
- * ROLL CHANGE
- ********************************************************/
 
-roll.addEventListener(
-    "input",
-    function() {
+  try {
 
-        const value =
-            roll.value
-                .trim();
-
-
-        if (
-            value
-        ) {
-
-            subject.disabled =
-                false;
-
-        }
-        else {
-
-            subject.disabled =
-                true;
-
-            category.disabled =
-                true;
-
-            searchButton.disabled =
-                true;
-
-            subject.value =
-                "";
-
-            category.value =
-                "";
-
-            clearResults();
-
-        }
-
-    }
-);
-
-
-/********************************************************
- * SUBJECT CHANGE
- ********************************************************/
-
-subject.addEventListener(
-    "change",
-    function() {
-
-        const selected =
-            subject.value;
-
-
-        category.innerHTML =
-            `
-            <option value="">
-                Select Lab / Theory / Project
-            </option>
-            `;
-
-
-        if (!selected) {
-
-            category.disabled =
-                true;
-
-            searchButton.disabled =
-                true;
-
-            return;
-
-        }
-
-
-        const types =
-            getTypes(
-                selected
-            );
-
-
-        types.forEach(
-            function(type) {
-
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-                option.value =
-                    type;
-
-                option.textContent =
-                    capitalize(
-                        type
-                    );
-
-                category.appendChild(
-                    option
-                );
-
-            }
-        );
-
-
-        category.disabled =
-            false;
-
-        searchButton.disabled =
-            true;
-
-        clearResults();
-
-    }
-);
-
-
-/********************************************************
- * TYPE CHANGE
- ********************************************************/
-
-category.addEventListener(
-    "change",
-    function() {
-
-        searchButton.disabled =
-            !(
-                roll.value.trim() &&
-                subject.value &&
-                category.value
-            );
-
-
-        clearResults();
-
-    }
-);
-
-
-/********************************************************
- * LOAD SUBJECTS
- ********************************************************/
-
-function loadSubjects() {
-
-    const all =
-        []
-            .concat(
-                SUBJECTS.lab
-            )
-            .concat(
-                SUBJECTS.theory
-            )
-            .concat(
-                SUBJECTS.project
-            );
-
-
-    const unique =
-        [
-            ...new Set(
-                all
-            )
-        ];
-
-
-    unique.forEach(
-        function(name) {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-            option.value =
-                name;
-
-            option.textContent =
-                name;
-
-            subject.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/********************************************************
- * GET TYPES
- ********************************************************/
-
-function getTypes(
-    subjectName
-) {
-
-    const result = [];
-
-
-    Object.keys(
-        SUBJECTS
-    ).forEach(
-        function(type) {
-
-            if (
-                SUBJECTS[type]
-                    .includes(
-                        subjectName
-                    )
-            ) {
-
-                result.push(
-                    type
-                );
-
-            }
-
-        }
-    );
-
-
-    return result;
-
-}
-
-
-/********************************************************
- * SEARCH
- ********************************************************/
-
-searchButton.addEventListener(
-    "click",
-    searchPPT
-);
-
-
-async function searchPPT() {
-
-    const rollValue =
-        roll.value
-            .trim()
-            .toUpperCase();
-
-
-    const subjectValue =
-        subject.value;
-
-
-    const categoryValue =
-        category.value;
-
-
-    if (
-        !rollValue ||
-        !subjectValue ||
-        !categoryValue
-    ) {
-
-        return;
-
-    }
-
-
-    searchButton.disabled =
-        true;
-
-
-    searchButton.textContent =
-        "SEARCHING...";
-
-
-    clearResults();
-
-
-    try {
-
-        const url =
-            API_URL +
-            "?action=searchPPT" +
-            "&roll=" +
-            encodeURIComponent(
-                rollValue
-            ) +
-            "&subject=" +
-            encodeURIComponent(
-                subjectValue
-            ) +
-            "&category=" +
-            encodeURIComponent(
-                categoryValue
-            );
-
-
-        const response =
-            await fetch(
-                url
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Server returned HTTP " +
-                response.status
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if (!data.ok) {
-
-            throw new Error(
-                data.error ||
-                "Search failed."
-            );
-
-        }
-
-
-        if (
-            !data.found ||
-            !data.submissions ||
-            data.submissions.length === 0
-        ) {
-
-            results.innerHTML =
-                `
-                <div class="empty">
-
-                    <div style="font-size:40px;">
-                        📂
-                    </div>
-
-                    <h3
-                        style="margin-top:12px;color:white;"
-                    >
-                        No PPT Submitted
-                    </h3>
-
-                    <p
-                        style="margin-top:8px;"
-                    >
-                        No presentation was found for
-                        <strong>
-                            ${escapeHtml(
-                                rollValue
-                            )}
-                        </strong>
-                        →
-                        <strong>
-                            ${escapeHtml(
-                                subjectValue
-                            )}
-                        </strong>
-                        →
-                        <strong>
-                            ${escapeHtml(
-                                categoryValue
-                            )}
-                        </strong>
-                    </p>
-
-                </div>
-                `;
-
-            return;
-
-        }
-
-
-        renderResults(
-            data.submissions
-        );
-
-
-    }
-    catch(error) {
-
-        console.error(
-            error
-        );
-
-
-        results.innerHTML =
-            `
-            <div class="message error">
-                ${escapeHtml(
-                    error.message
-                )}
-            </div>
-            `;
-
-    }
-    finally {
-
-        searchButton.disabled =
-            false;
-
-        searchButton.textContent =
-            "SEARCH";
-
-    }
-
-}
-
-
-/********************************************************
- * RENDER
- ********************************************************/
-
-function renderResults(
-    submissions
-) {
-
-    results.innerHTML =
-        submissions
-            .map(
-                function(item) {
-
-                    const url =
-                        item.url ||
-                        item.presentationUrl ||
-                        "";
-
-
-                    return `
-
-                    <article
-                        class="ppt-card"
-                    >
-
-                        <div
-                            class="file-icon"
-                        >
-                            📊
-                        </div>
-
-
-                        <h2>
-                            ${escapeHtml(
-                                item.fileName ||
-                                "Presentation"
-                            )}
-                        </h2>
-
-
-                        <div class="topic">
-
-                            Topic:
-                            ${escapeHtml(
-                                item.topic ||
-                                "Presentation"
-                            )}
-
-                        </div>
-
-
-                        <div class="details">
-
-                            <div
-                                class="detail"
-                            >
-
-                                <span>
-                                    Roll Number
-                                </span>
-
-                                <span>
-                                    ${escapeHtml(
-                                        item.roll
-                                    )}
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="detail"
-                            >
-
-                                <span>
-                                    Subject
-                                </span>
-
-                                <span>
-                                    ${escapeHtml(
-                                        item.subject
-                                    )}
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="detail"
-                            >
-
-                                <span>
-                                    Type
-                                </span>
-
-                                <span>
-                                    ${escapeHtml(
-                                        capitalize(
-                                            item.category
-                                        )
-                                    )}
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                class="detail"
-                            >
-
-                                <span>
-                                    Uploaded
-                                </span>
-
-                                <span>
-                                    ${escapeHtml(
-                                        formatDate(
-                                            item.uploadedAt
-                                        )
-                                    )}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <button
-                            class="present"
-                            onclick='presentPPT(${JSON.stringify(
-                                url
-                            )})'
-                        >
-                            ▶ PRESENT PPT
-                        </button>
-
-
-                    </article>
-
-                    `;
-
-                }
-            )
-            .join("");
-
-}
-
-
-/********************************************************
- * PRESENT
- ********************************************************/
-
-function presentPPT(
-    url
-) {
-
-    if (!url) {
-
-        alert(
-            "Presentation link is not available."
-        );
-
-        return;
-
-    }
-
-
-    window.open(
-        url,
-        "_blank"
-    );
-
-}
-
-
-/********************************************************
- * CLEAR
- ********************************************************/
-
-function clearResults() {
-
-    results.innerHTML =
-        "";
-
-}
-
-
-/********************************************************
- * DATE
- ********************************************************/
-
-function formatDate(
-    value
-) {
-
-    if (!value) {
-
-        return "-";
-
-    }
-
-
-    const date =
-        new Date(
-            value
-        );
-
-
-    if (
-        Number.isNaN(
-            date.getTime()
-        )
-    ) {
-
-        return String(
-            value
-        );
-
-    }
-
-
-    return date.toLocaleString(
-        "en-IN",
+    const response =
+      await fetch(
+        API_URL,
         {
-            dateStyle:
-                "medium",
+          method: "POST",
 
-            timeStyle:
-                "short"
+          headers: {
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body: JSON.stringify({
+
+            action: "getPPTs",
+
+            subject: subject,
+
+            category: category
+
+          })
+
         }
-    );
+      );
+
+
+    const text =
+      await response.text();
+
+
+    const data =
+      JSON.parse(text);
+
+
+    if (!data.ok) {
+
+      throw new Error(
+        data.error ||
+        "Unable to retrieve PPTs."
+      );
+
+    }
+
+
+    if (
+      !data.submissions ||
+      data.submissions.length === 0
+    ) {
+
+      status.textContent =
+        "No PPTs have been submitted yet.";
+
+      return;
+
+    }
+
+
+    status.textContent =
+      data.count +
+      " PPT(s) found.";
+
+
+    for (
+      let i = 0;
+      i < data.submissions.length;
+      i++
+    ) {
+
+      const item =
+        data.submissions[i];
+
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "card";
+
+
+      const info =
+        document.createElement("div");
+
+      info.className =
+        "info";
+
+
+      const title =
+        document.createElement("h3");
+
+      title.textContent =
+        item.roll;
+
+
+      const file =
+        document.createElement("p");
+
+      file.textContent =
+        item.fileName;
+
+
+      const subjectText =
+        document.createElement("p");
+
+      subjectText.textContent =
+        item.subject +
+        " • " +
+        capitalize(item.category);
+
+
+      info.appendChild(title);
+
+      info.appendChild(file);
+
+      info.appendChild(subjectText);
+
+
+      const button =
+        document.createElement("button");
+
+      button.className =
+        "present";
+
+      button.textContent =
+        "OPEN / PRESENT";
+
+
+      button.onclick =
+        function() {
+
+          window.open(
+            item.presentationUrl ||
+            item.fileUrl,
+            "_blank"
+          );
+
+        };
+
+
+      card.appendChild(info);
+
+      card.appendChild(button);
+
+      results.appendChild(card);
+
+    }
+
+  }
+  catch(error) {
+
+    console.error(error);
+
+    status.textContent =
+      error.message ||
+      "Unable to connect to the server.";
+
+  }
 
 }
 
 
-/********************************************************
- * CAPITALIZE
- ********************************************************/
+function capitalize(value) {
 
-function capitalize(
-    text
-) {
-
-    return (
-        text.charAt(0)
-            .toUpperCase() +
-        text.slice(1)
-    );
+  return value.charAt(0).toUpperCase() +
+    value.substring(1);
 
 }
-
-
-/********************************************************
- * ESCAPE HTML
- ********************************************************/
-
-function escapeHtml(
-    value
-) {
-
-    return String(
-        value || ""
-    )
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/********************************************************
- * INITIALIZE
- ********************************************************/
-
-loadSubjects();
 
 </script>
 
-
 </body>
-
 </html>
